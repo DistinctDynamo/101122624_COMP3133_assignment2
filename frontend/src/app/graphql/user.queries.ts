@@ -1,8 +1,8 @@
 import { gql } from "apollo-angular";
 
 const Login = gql `
-query User($password: String!){
-    user(password: $password) {
+query Login($email: String!, $password: String!){
+    login(email: $email, password: $password) {
         username
         email
     }
@@ -10,8 +10,8 @@ query User($password: String!){
 `
 
 const SignUp = gql`
-mutation CreateUser($username: String!, $email: String!, $password: String!){
-    createUser(username: $username, email: $email, password: $password){
+mutation SignUp($username: String!, $email: String!, $password: String!){
+    signUp(username: $username, email: $email, password: $password){
         username
         email
         password

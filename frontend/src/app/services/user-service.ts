@@ -25,31 +25,30 @@ private handleError(error: any) {
   return throwError(() => new Error(errorMessage));
   }
 
-  Login(password: String): Observable<User> {
+  login(email: string, password: string): Observable<User> {
     return this.apollo
-      .query<any>({ query: Login, variables: password })
+      .query<any>({ query: Login, variables: {email, password} })
       .pipe(
         map((res) => {
           console.log('User found:', res);
-          return res?.data?.user;
+          return res?.data?.login;
         }),
         catchError((error) => this.handleError(error))
       );
   }
 
-   Signup(user: any): Observable<User> {
+   signUp(user: any): Observable<User> {
     return this.apollo
       .mutate({
         mutation: SignUp,
         variables: {
           username: user.username,
           email: user.email,
-          lastname: user.lastname
-        },
-        refetchQueries: [{ query: Login }],
+          password: user.password
+        }
       })
       .pipe(
-        map((res: any) => res.data.addUser),
+        map((res: any) => res.data.signUp),
         catchError((error) => this.handleError(error))
       );
   }

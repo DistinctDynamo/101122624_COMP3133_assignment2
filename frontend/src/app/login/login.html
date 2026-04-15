@@ -1,1 +1,19 @@
-<p>login works!</p>
+<h2>Login</h2>
+
+ <form class="space-y-4 mb-6" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <input type="email" placeholder="Email" formControlName="email"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="password" placeholder="Password" formControlName="password"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <div class="flex gap-2">  
+      <button type="submit" [disabled]="userForm.invalid" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Submit
+      </button>
+
+      <button type="button" (click)="resetForm()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+        Cancel
+      </button>
+    </div>
+  </form>

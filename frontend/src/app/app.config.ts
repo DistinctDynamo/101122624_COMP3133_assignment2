@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
 
       return {
         link: httpLink.create({
-          uri: '<%= endpoint %>',
+          uri: 'http://localhost:5000/graphql',
         }),
         cache: new InMemoryCache(),
       };
