@@ -28,6 +28,21 @@ query Employee($employeeId: ID!) {
     }
   }
 `
+const GET_EMPLOYEE_BY_DEPARTMENT = gql`
+query Employee($employeeDepartment: String!) {
+    employee(department: $employeeDepartment) {
+      _id
+     first_name
+     last_name
+     email
+     gender
+     designation
+     salary
+     department
+    }
+  }
+`
+
 const ADD_EMPLOYEE = gql`
   mutation CreateEmployee($first_name: String!, $last_name: String!, $email: String!, $gender: String, $designation: String!, $salary: Float!, $department: String!) {
     createEmployee(first_name: $first_name, last_name: $last_name, email: $email, gender: $gender, designation: $designation, salary: $salary, department: $department) {
@@ -71,4 +86,4 @@ const DELETE_EMPLOYEE = gql`
   }
 `
 
-export {  GET_EMPLOYEES, GET_EMPLOYEE_BY_ID, ADD_EMPLOYEE, UPDATE_EMPLOYEE, DELETE_EMPLOYEE}
+export {  GET_EMPLOYEES, GET_EMPLOYEE_BY_ID, GET_EMPLOYEE_BY_DEPARTMENT, ADD_EMPLOYEE, UPDATE_EMPLOYEE, DELETE_EMPLOYEE}
