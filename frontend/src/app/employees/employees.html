@@ -1,1 +1,72 @@
-<p>employees works!</p>
+<h2>Employees</h2>
+
+<form class="space-y-4 mb-6" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="First Name" formControlName="first_name"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="text" placeholder="Last Name" formControlName="last_name"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="email" placeholder="Email" formControlName="email"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="text" placeholder="Gender" formControlName="gender"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="text" placeholder="Designation" formControlName="designation"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="number" placeholder="Salary" formControlName="salary"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <input type="text" placeholder="Department" formControlName="department"
+      class="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+    <div class="flex gap-2">
+      <button type="submit" [disabled]="employeeForm.invalid"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        {{ isUpdating ? 'Update Employee' : 'Add Employee' }}
+      </button>
+
+      @if (isUpdating) {
+      <button type="button" (click)="resetForm()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+        Cancel
+      </button>
+      }
+    </div>
+  </form>
+
+  @if (employees.length) {
+  <div class="space-y-3">
+    @for (employee of employees; track employee._id) {
+    <div class="flex justify-between items-center p-4 bg-gray-50 rounded shadow-sm">
+
+      <div>
+        <p class="font-semibold text-lg">
+          {{ employee.first_name }} {{ employee.last_name }}
+        </p>
+        <p class="text-sm text-gray-600">{{ employee.email }}</p>
+      </div>
+
+      <div class="flex gap-2">
+
+        <button (click)="selectEmployee(employee)" class="bg-yellow-400 px-3 py-1 rounded text-white hover:bg-yellow-500">
+          Edit
+        </button>
+
+        <button (click)="deleteEmployee(employee._id)" class="bg-red-500 px-3 py-1 rounded text-white hover:bg-red-600">
+          Delete
+        </button>
+
+        <a [routerLink]="['/employeeForm', employee._id]"
+          class="bg-green-500 px-3 py-1 rounded text-white hover:bg-green-600">
+          View
+        </a>
+
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <p class="text-gray-500 text-center">No Employees found.</p>
+  }
